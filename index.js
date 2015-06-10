@@ -1,6 +1,6 @@
 // transpile:main
 
-import {default as sample} from './lib/sample';
+import { SelendroidDriver } from './lib/driver';
 
-export {sample};
+export { SelendroidDriver };
 

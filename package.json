@@ -1,8 +1,11 @@
 {
   "name": "appium-selendroid-driver",
-  "description": "Description goes here.",
+  "description": "Selendroid integration for Appium",
   "keywords": [
-    "appium"
+    "appium",
+    "selendroid",
+    "automated testing",
+    "android"
   ],
   "version": "0.0.0",
   "author": "appium",
