@@ -1,2 +1,16 @@
-# appium-selendroid-driver
-Appium's Selendroid integration
+appium-selendroid-driver
+===================
+
+Work in progress, stay tuned!
+
+## Watch
+
+```
+npm run watch
+```
+
+## Test
+
+```
+npm test
+```
