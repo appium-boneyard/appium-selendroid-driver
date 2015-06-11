@@ -26,8 +26,15 @@
     "lib": "lib"
   },
   "dependencies": {
-    "babel-runtime": "=5.5.5",
-    "source-map-support": "^0.3.1"
+    "appium-base-driver": "^0.1.13",
+    "appium-express": "^0.0.1",
+    "appium-logger": "^1.1.2",
+    "asyncbox": "^2.0.4",
+    "babel-runtime": "5.5.5",
+    "bluebird": "^2.9.27",
+    "mobile-json-wire-protocol": "^0.10.1",
+    "source-map-support": "^0.3.1",
+    "yargs": "^3.10.0"
   },
   "scripts": {
     "prepublish": "./node_modules/.bin/gulp prepublish",
@@ -40,6 +47,6 @@
     "chai-as-promised": "^5.1.0",
     "gulp": "^3.8.11",
     "mochawait": "^2.0.0",
-    "yargs": "^3.10.0"
+    "wd": "^0.3.12"
   }
 }
