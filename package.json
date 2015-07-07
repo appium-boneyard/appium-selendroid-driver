@@ -26,6 +26,7 @@
     "lib": "lib"
   },
   "dependencies": {
+    "appium-adb": "~2.0.0-beta1",
     "appium-base-driver": "^0.1.13",
     "appium-express": "^0.0.4",
     "appium-logger": "^1.1.2",
