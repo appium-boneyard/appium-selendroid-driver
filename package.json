@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "MD5": "^1.2.2",
-    "appium-adb": "~2.0.0-beta7",
+    "appium-adb": "2.0.0-beta7",
     "appium-android-ime": "^2.0.0",
     "appium-base-driver": "^0.1.13",
     "appium-express": "^0.0.4",

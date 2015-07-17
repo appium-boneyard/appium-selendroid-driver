@@ -61,7 +61,7 @@ describe('SelendroidServer', () => {
       mocks.selendroid.expects("buildNewModServer").once()
         .returns(Promise.resolve());
       // should check certs regardless
-      mocks.selendroid.expects("checkCerts").once()
+      mocks.selendroid.expects("checkAndSignCert").twice()
         .returns(Promise.resolve());
       await selendroid.prepareModifiedServer();
       mocks.util.verify();
@@ -78,7 +78,7 @@ describe('SelendroidServer', () => {
       // should not call the building method
       mocks.selendroid.expects("buildNewModServer").never();
       // should check certs regardless
-      mocks.selendroid.expects("checkCerts").once()
+      mocks.selendroid.expects("checkAndSignCert").twice()
         .returns(Promise.resolve());
       await selendroid.prepareModifiedServer();
       mocks.util.verify();
@@ -115,7 +115,7 @@ describe('SelendroidServer', () => {
     });
   }));
 
-  describe('#checkCerts', withMocks({adb}, (mocks) => {
+  describe('#checkAndSignCert', withMocks({adb}, (mocks) => {
     let selendroid = new SelendroidServer(buildSelendroidOpts(adb));
     it('should check and sign both apks if neither are signed', async () => {
       mocks.adb.expects("checkApkCert").once()
@@ -130,7 +130,8 @@ describe('SelendroidServer', () => {
       mocks.adb.expects("sign").once()
         .withExactArgs(selendroid.apk)
         .returns(Promise.resolve());
-      await selendroid.checkCerts();
+      await selendroid.checkAndSignCert(selendroid.modServerPath);
+      await selendroid.checkAndSignCert(selendroid.apk);
       mocks.adb.verify();
     });
 
@@ -144,7 +145,8 @@ describe('SelendroidServer', () => {
       mocks.adb.expects("sign").once()
         .withExactArgs(selendroid.modServerPath)
         .returns(Promise.resolve());
-      await selendroid.checkCerts();
+      await selendroid.checkAndSignCert(selendroid.modServerPath);
+      await selendroid.checkAndSignCert(selendroid.apk);
       mocks.adb.verify();
     });
 
@@ -156,7 +158,8 @@ describe('SelendroidServer', () => {
         .withExactArgs(selendroid.apk, selendroid.appPackage)
         .returns(Promise.resolve(true));
       mocks.adb.expects("sign").never();
-      await selendroid.checkCerts();
+      await selendroid.checkAndSignCert(selendroid.modServerPath);
+      await selendroid.checkAndSignCert(selendroid.apk);
       mocks.adb.verify();
     });
   }));
