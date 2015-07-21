@@ -49,7 +49,7 @@ describe('SelendroidServer', () => {
   describe('#prepareModifiedServer', withMocks({adb, util}, (mocks, S) => {
     let selendroid = new SelendroidServer(buildSelendroidOpts(adb));
     it('should build a modified server if one doesnt exist', async () => {
-      mocks.util.expects("fileExists").once()
+      mocks.util.expects("hasAccess").once()
         .withExactArgs(selendroid.modServerPath)
         .returns(Promise.resolve(false));
       // should uninstall the apk if it's rebuilt
@@ -69,7 +69,7 @@ describe('SelendroidServer', () => {
       mocks.selendroid.verify();
     });
     it('should not build a modified server if one does exist', async () => {
-      mocks.util.expects("fileExists").once()
+      mocks.util.expects("hasAccess").once()
         .withExactArgs(selendroid.modServerPath)
         .returns(Promise.resolve(true));
       // should not uninstall the apk if it's not rebuilt
@@ -90,7 +90,7 @@ describe('SelendroidServer', () => {
   describe('#buildNewModServer', withMocks({adb, util, localUtils}, (mocks) => {
     let selendroid = new SelendroidServer(buildSelendroidOpts(adb));
     it('should go through the steps to compile a server', async () => {
-      mocks.util.expects("mkdirp").once()
+      mocks.util.expects("mkdir").once()
         .withExactArgs(`/tmp/${selendroid.appPackage}`)
         .returns(Promise.resolve());
       mocks.localUtils.expects("readFile").once()
