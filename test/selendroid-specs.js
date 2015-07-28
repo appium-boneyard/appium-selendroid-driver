@@ -4,10 +4,9 @@ import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import 'mochawait';
 import { SelendroidServer } from '../lib/selendroid';
-import { util } from 'appium-support';
-import { SE_APK_PATH } from '../lib/setup';
+import { fs } from 'appium-support';
+import { SE_APK_PATH, SE_MANIFEST_PATH } from '../lib/setup';
 import ADB from 'appium-adb';
-import localUtils from '../lib/utils'; // TODO replace w/ appium-support
 import { withMocks } from 'appium-test-support';
 
 chai.should();
@@ -46,10 +45,10 @@ describe('SelendroidServer', () => {
     });
   });
 
-  describe('#prepareModifiedServer', withMocks({adb, util}, (mocks, S) => {
+  describe('#prepareModifiedServer', withMocks({adb, fs}, (mocks, S) => {
     let selendroid = new SelendroidServer(buildSelendroidOpts(adb));
     it('should build a modified server if one doesnt exist', async () => {
-      mocks.util.expects("hasAccess").once()
+      mocks.fs.expects("exists").once()
         .withExactArgs(selendroid.modServerPath)
         .returns(Promise.resolve(false));
       // should uninstall the apk if it's rebuilt
@@ -64,12 +63,12 @@ describe('SelendroidServer', () => {
       mocks.selendroid.expects("checkAndSignCert").twice()
         .returns(Promise.resolve());
       await selendroid.prepareModifiedServer();
-      mocks.util.verify();
+      mocks.fs.verify();
       mocks.adb.verify();
       mocks.selendroid.verify();
     });
     it('should not build a modified server if one does exist', async () => {
-      mocks.util.expects("hasAccess").once()
+      mocks.fs.expects("exists").once()
         .withExactArgs(selendroid.modServerPath)
         .returns(Promise.resolve(true));
       // should not uninstall the apk if it's not rebuilt
@@ -81,22 +80,20 @@ describe('SelendroidServer', () => {
       mocks.selendroid.expects("checkAndSignCert").twice()
         .returns(Promise.resolve());
       await selendroid.prepareModifiedServer();
-      mocks.util.verify();
+      mocks.fs.verify();
       mocks.adb.verify();
       mocks.selendroid.verify();
     });
   }));
 
-  describe('#buildNewModServer', withMocks({adb, util, localUtils}, (mocks) => {
+  describe('#buildNewModServer', withMocks({adb, fs}, (mocks) => {
     let selendroid = new SelendroidServer(buildSelendroidOpts(adb));
     it('should go through the steps to compile a server', async () => {
-      mocks.util.expects("mkdir").once()
+      mocks.fs.expects("mkdir").once()
         .withExactArgs(`/tmp/${selendroid.appPackage}`)
         .returns(Promise.resolve());
-      mocks.localUtils.expects("readFile").once()
-        .returns(Promise.resolve("manifest"));
-      mocks.localUtils.expects("writeFile").once()
-        .withExactArgs('/tmp/AndroidManifest.xml', 'manifest')
+      mocks.fs.expects("copyFile").once()
+        .withExactArgs(SE_MANIFEST_PATH, '/tmp/AndroidManifest.xml')
         .returns(Promise.resolve());
       mocks.adb.expects("initAapt").once()
         .returns(Promise.resolve());
@@ -109,8 +106,7 @@ describe('SelendroidServer', () => {
                        selendroid.modServerPath)
         .returns(Promise.resolve());
       await selendroid.buildNewModServer();
-      mocks.util.verify();
-      mocks.localUtils.verify();
+      mocks.fs.verify();
       mocks.adb.verify();
     });
   }));
