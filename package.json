@@ -33,6 +33,7 @@
     "appium-express": "^0.0.4",
     "appium-jsonwp-proxy": "^1.2.3",
     "appium-logger": "^1.1.2",
+    "appium-selendroid-installer": "^0.0.3",
     "appium-support": "^1.1.1",
     "appium-unlock": "0.0.1",
     "asyncbox": "^2.0.4",

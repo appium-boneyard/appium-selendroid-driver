@@ -5,7 +5,7 @@ import chaiAsPromised from 'chai-as-promised';
 import 'mochawait';
 import { SelendroidServer } from '../lib/selendroid';
 import { util } from 'appium-support';
-import { SE_APK_PATH } from '../lib/setup';
+import { SE_APK_PATH } from 'appium-selendroid-installer';
 import ADB from 'appium-adb';
 import localUtils from '../lib/utils'; // TODO replace w/ appium-support
 import { withMocks } from 'appium-test-support';
