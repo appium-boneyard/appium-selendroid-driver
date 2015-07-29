@@ -13,9 +13,9 @@ chai.use(chaiAsPromised);
 describe('Android Helpers', () => {
   let adb = new ADB();
 
-  describe('parseJavaVersion', withMocks({adb}, (mocks) => {
+  describe.skip('parseJavaVersion', withMocks({adb}, (mocks) => {
+    console.log(mocks);
     it('', async () => {
-      console.log(mocks);
       //mocks.adb.expects('')
                //.once()
                //.withExactArgs()
