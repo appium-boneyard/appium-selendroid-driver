@@ -3,9 +3,9 @@
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import 'mochawait';
-import { SelendroidServer } from '../lib/selendroid';
+import { SelendroidServer } from '../../lib/selendroid';
 import { fs } from 'appium-support';
-import { SE_APK_PATH, SE_MANIFEST_PATH } from '../lib/setup';
+import { SE_APK_PATH, SE_MANIFEST_PATH } from '../../lib/setup';
 import ADB from 'appium-adb';
 import { withMocks } from 'appium-test-support';
 
@@ -198,4 +198,3 @@ describe('SelendroidServer', () => {
     });
   }));
 });
-
