@@ -3,28 +3,21 @@
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import 'mochawait';
-//import * as helpers from '../lib/android-helpers';
-import ADB from 'appium-adb';
-import { withMocks } from 'appium-test-support';
+import * as helpers from '../../lib/android-helpers';
+//import ADB from 'appium-adb';
+//import { withMocks } from 'appium-test-support';
 
 chai.should();
 chai.use(chaiAsPromised);
 
 describe('Android Helpers', () => {
-  let adb = new ADB();
+  //let adb = new ADB();
 
-  describe.skip('parseJavaVersion', withMocks({adb}, (mocks) => {
-    console.log(mocks);
-    it('', async () => {
-      //mocks.adb.expects('')
-               //.once()
-               //.withExactArgs()
-               //.returns(true);
-      //mocks.adb.verify();
+  describe('parseJavaVersion', () => {
+    it('should correctly parseJavaVersion', () => {
+      helpers.parseJavaVersion(`java version "1.8.0_40"
+        Java(TM) SE Runtime Environment (build 1.8.0_40-b27)`).should
+        .be.equal("1.8.0_40");
     });
-  }));
-
-  describe.skip('setJavaVersion', withMocks({adb}, (mocks) => {
-    console.log(mocks);
-  }));
+  });
 });
