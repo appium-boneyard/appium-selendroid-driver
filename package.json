@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "appium-adb": "2.0.0-beta7",
+    "appium-android-driver": "0.0.1",
     "appium-android-ime": "^2.0.0",
     "appium-base-driver": "^0.2.1",
     "appium-express": "^0.0.4",
@@ -54,7 +55,7 @@
   },
   "devDependencies": {
     "appium-gulp-plugins": "^1.2.12",
-    "appium-test-support": "0.0.2",
+    "appium-test-support": "0.0.5",
     "chai": "^3.0.0",
     "chai-as-promised": "^5.1.0",
     "gulp": "^3.8.11",
