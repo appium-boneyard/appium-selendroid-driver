@@ -1,5 +1,6 @@
 // transpile:mocha
 
+import path from 'path';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import 'mochawait';
@@ -8,7 +9,9 @@ import wd from 'wd';
 import { startServer } from '../..';
 
 const TEST_PORT = 4884,
-      TEST_HOST = 'localhost';
+      TEST_HOST = 'localhost',
+      TEST_APP = path.resolve(__dirname, '..', '..', '..', 'test', 'fixtures',
+                              'selendroid-test-app.apk');
 
 const shouldStartServer = process.env.USE_RUNNING_SERVER !== "0";
 
@@ -18,7 +21,8 @@ chai.use(chaiAsPromised);
 describe('SelendroidDriver', () => {
 
   let server = null;
-  const caps = {platformName: 'Android', deviceName: 'Android Emulator'};
+  const caps = {platformName: 'Android', deviceName: 'Android Emulator',
+                app: TEST_APP};
   before(async () => {
     if (shouldStartServer) {
       server = await startServer(TEST_PORT, TEST_HOST);
