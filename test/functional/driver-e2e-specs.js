@@ -3,10 +3,10 @@
 import path from 'path';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import 'mochawait';
 import B from 'bluebird';
 import wd from 'wd';
 import { startServer } from '../..';
+
 
 const TEST_PORT = 4884,
       TEST_HOST = 'localhost',

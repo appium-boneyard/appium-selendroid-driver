@@ -1,12 +1,12 @@
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import 'mochawait';
 //import ADB from 'appium-adb';
 //import { withMocks } from 'appium-test-support';
 import { SelendroidDriver } from '../../lib/driver.js';
 import sinon from 'sinon';
 import path from 'path';
 //import { BaseDriver } from 'appium-base-driver';
+
 
 chai.should();
 chai.use(chaiAsPromised);
