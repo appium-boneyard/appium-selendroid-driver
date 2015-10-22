@@ -1,20 +1,14 @@
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-//import ADB from 'appium-adb';
-//import { withMocks } from 'appium-test-support';
-import { SelendroidDriver } from '../../lib/driver.js';
+import SelendroidDriver from '../..';
 import sinon from 'sinon';
 import path from 'path';
-//import { BaseDriver } from 'appium-base-driver';
 
 
 chai.should();
 chai.use(chaiAsPromised);
 
 describe('driver.js', () => {
-//  let adb = new ADB();
-
-
   describe('constructor', () => {
     it('calls BaseDriver constructor with opts', () => {
       let driver = new SelendroidDriver({foo: 'bar'});

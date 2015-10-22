@@ -2,7 +2,7 @@
 
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import { SelendroidServer } from '../../lib/selendroid';
+import SelendroidServer from '../../lib/selendroid';
 import { fs } from 'appium-support';
 import { SE_APK_PATH, SE_MANIFEST_PATH } from 'appium-selendroid-installer';
 import ADB from 'appium-adb';
