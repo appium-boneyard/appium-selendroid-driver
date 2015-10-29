@@ -60,8 +60,8 @@ describe('SelendroidServer', () => {
       mocks.selendroid.expects("buildNewModServer").once()
         .returns(Promise.resolve());
       // should check certs regardless
-      mocks.selendroid.expects("checkAndSignCert").twice()
-        .returns(Promise.resolve());
+      mocks.selendroid.expects('checkAndSignCert').twice()
+        .returns(Promise.resolve(true));
       await selendroid.prepareModifiedServer();
       mocks.fs.verify();
       mocks.adb.verify();
