@@ -3,8 +3,8 @@
 import path from 'path';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import B from 'bluebird';
 import wd from 'wd';
+import { tempDir, fs } from 'appium-support';
 import { startServer } from '../..';
 
 
@@ -22,7 +22,13 @@ describe('SelendroidDriver', () => {
   let server = null;
   const caps = {platformName: 'Android', deviceName: 'Android Emulator',
                 app: TEST_APP};
+  let tempAppFile;
   before(async () => {
+    // make a temporary copy of the apk
+    let dir = await tempDir.path();
+    tempAppFile = path.resolve(dir, 'selendroid-test-app.apk');
+    await fs.copyFile(TEST_APP, tempAppFile);
+    caps.app = tempAppFile;
     if (shouldStartServer) {
       server = await startServer(TEST_PORT, TEST_HOST);
     }
@@ -30,6 +36,9 @@ describe('SelendroidDriver', () => {
   after(async () => {
     if (server) {
       server.close();
+    }
+    if (tempAppFile) {
+      await fs.unlink(tempAppFile);
     }
   });
 
