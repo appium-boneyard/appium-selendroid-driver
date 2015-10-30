@@ -19,7 +19,6 @@ const should = chai.should();
 chai.use(chaiAsPromised);
 
 describe('SelendroidDriver', () => {
-
   let server = null;
   const caps = {platformName: 'Android', deviceName: 'Android Emulator',
                 app: TEST_APP};
@@ -30,17 +29,17 @@ describe('SelendroidDriver', () => {
   });
   after(async () => {
     if (server) {
-      await B.promisify(server.close.bind(server))();
+      server.close();
     }
   });
 
   it('should start a session', async () => {
-      let driver = wd.promiseChainRemote(TEST_HOST, TEST_PORT);
-      let [sessionId] = await driver.init(caps);
-      should.exist(sessionId);
-      sessionId.should.be.a('string');
-      await driver.quit();
-      await driver.title().should.eventually.be.rejectedWith(/terminated/);
+    let driver = wd.promiseChainRemote(TEST_HOST, TEST_PORT);
+    let [sessionId] = await driver.init(caps);
+    should.exist(sessionId);
+    sessionId.should.be.a('string');
+    await driver.quit();
+    await driver.title().should.eventually.be.rejectedWith(/terminated/);
   });
 });
 
