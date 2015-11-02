@@ -8,10 +8,13 @@
 [![Build Status](https://api.travis-ci.org/appium/appium-selendroid-driver.png?branch=master)](https://travis-ci.org/appium/appium-selendroid-driver)
 [![Coverage Status](https://coveralls.io/repos/appium/appium-selendroid-driver/badge.svg?branch=master)](https://coveralls.io/r/appium/appium-selendroid-driver?branch=master)
 
-This driver is the Appium interface to the [Selendroid](http://selendroid.io/) test automation framework. From the Appium server it is requested by specifying the desired capability `automationName` of `Selendroid` when starting a session.
+
+This driver is the Appium interface to the [Selendroid](http://selendroid.io/) test automation framework.
 
 
 ### Using with Appium server
+
+From the Appium server it is requested by specifying the desired capability `automationName` of `Selendroid` when starting a session.
 
 Most of the Selenium methods are handled by the Selendroid framework itself. This package simply handles the setting up of the session by instrumenting the application and making sure that both the application and the Selendroid server are signed with the same keys. It then provides a method for proxying through the [appium-jsonwp-proxy](https://github.com/appium/jsonwp-proxy) to the Selendroid server running on the device.
 
