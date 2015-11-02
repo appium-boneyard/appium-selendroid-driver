@@ -1,9 +1,9 @@
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import 'mochawait';
 import * as helpers from '../../lib/helpers';
 import ADB from 'appium-adb';
 import { withMocks } from 'appium-test-support';
+
 
 chai.should();
 chai.use(chaiAsPromised);

@@ -2,12 +2,12 @@
 
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import 'mochawait';
-import { SelendroidServer } from '../../lib/selendroid';
+import SelendroidServer from '../../lib/selendroid';
 import { fs } from 'appium-support';
 import { SE_APK_PATH, SE_MANIFEST_PATH } from 'appium-selendroid-installer';
 import ADB from 'appium-adb';
 import { withMocks } from 'appium-test-support';
+
 
 chai.should();
 chai.use(chaiAsPromised);
@@ -60,8 +60,8 @@ describe('SelendroidServer', () => {
       mocks.selendroid.expects("buildNewModServer").once()
         .returns(Promise.resolve());
       // should check certs regardless
-      mocks.selendroid.expects("checkAndSignCert").twice()
-        .returns(Promise.resolve());
+      mocks.selendroid.expects('checkAndSignCert').twice()
+        .returns(Promise.resolve(true));
       await selendroid.prepareModifiedServer();
       mocks.fs.verify();
       mocks.adb.verify();
