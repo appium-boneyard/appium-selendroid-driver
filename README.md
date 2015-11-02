@@ -1,5 +1,13 @@
 ## appium-selendroid-driver
 
+[![NPM version](http://img.shields.io/npm/v/appium-selendroid-driver.svg)](https://npmjs.org/package/appium-selendroid-driver)
+[![Downloads](http://img.shields.io/npm/dm/appium-selendroid-driver.svg)](https://npmjs.org/package/appium-selendroid-driver)
+[![Dependency Status](https://david-dm.org/appium/appium-selendroid-driver/master.svg)](https://david-dm.org/appium/appium-selendroid-driver/master)
+[![devDependency Status](https://david-dm.org/appium/appium-selendroid-driver/master/dev-status.svg)](https://david-dm.org/appium/appium-selendroid-driver/master#info=devDependencies)
+
+[![Build Status](https://api.travis-ci.org/appium/appium-selendroid-driver.png?branch=master)](https://travis-ci.org/appium/appium-selendroid-driver)
+[![Coverage Status](https://coveralls.io/repos/appium/appium-selendroid-driver/badge.svg?branch=master)](https://coveralls.io/r/appium/appium-selendroid-driver?branch=master)
+
 This driver is the Appium interface to the [Selendroid](http://selendroid.io/) test automation framework. From the Appium server it is requested by specifying the desired capability `automationName` of `Selendroid` when starting a session.
 
 
