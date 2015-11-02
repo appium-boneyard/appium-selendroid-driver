@@ -60,7 +60,7 @@ describe('SelendroidServer', () => {
       mocks.selendroid.expects("buildNewModServer").once()
         .returns(Promise.resolve());
       // should check certs regardless
-      mocks.selendroid.expects('checkAndSignCert').twice()
+      mocks.selendroid.expects('checkAndSignCert').once()
         .returns(Promise.resolve(true));
       await selendroid.prepareModifiedServer();
       mocks.fs.verify();
@@ -77,7 +77,7 @@ describe('SelendroidServer', () => {
       // should not call the building method
       mocks.selendroid.expects("buildNewModServer").never();
       // should check certs regardless
-      mocks.selendroid.expects("checkAndSignCert").twice()
+      mocks.selendroid.expects("checkAndSignCert").once()
         .returns(Promise.resolve());
       await selendroid.prepareModifiedServer();
       mocks.fs.verify();
