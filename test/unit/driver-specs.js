@@ -63,4 +63,48 @@ describe('driver.js', () => {
     });
   });
 
+  describe('proxying', () => {
+    let driver;
+    before(() => {
+      driver = new SelendroidDriver({}, false);
+      driver.sessionId = 'abc';
+    });
+    describe('#proxyActive', () => {
+      it('should exist', () => {
+        driver.proxyActive.should.be.an.instanceof(Function);
+      });
+      it('should return true', () => {
+        driver.proxyActive('abc').should.be.true;
+      });
+      it('should throw an error if session id is wrong', () => {
+        (() => { driver.proxyActive('aaa'); }).should.throw;
+      });
+    });
+
+    describe('#getProxyAvoidList', () => {
+      it('should exist', () => {
+        driver.getProxyAvoidList.should.be.an.instanceof(Function);
+      });
+      it('should return jwpProxyAvoid array', () => {
+        let avoidList = driver.getProxyAvoidList('abc');
+        avoidList.should.be.an.instanceof(Array);
+        avoidList.should.eql(driver.jwpProxyAvoid);
+      });
+      it('should throw an error if session id is wrong', () => {
+        (() => { driver.getProxyAvoidList('aaa'); }).should.throw;
+      });
+    });
+
+    describe('#canProxy', () => {
+      it('should exist', () => {
+        driver.canProxy.should.be.an.instanceof(Function);
+      });
+      it('should return true', () => {
+        driver.canProxy('abc').should.be.true;
+      });
+      it('should throw an error if session id is wrong', () => {
+        (() => { driver.canProxy('aaa'); }).should.throw;
+      });
+    });
+  });
 });
