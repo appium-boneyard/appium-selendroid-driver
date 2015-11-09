@@ -26,7 +26,7 @@
     "lib": "lib"
   },
   "dependencies": {
-    "appium-adb": "^2.0.1",
+    "appium-adb": "^2.0.4",
     "appium-android-driver": "^1.1.0",
     "appium-android-ime": "^2.0.0",
     "appium-base-driver": "^1.1.0",
@@ -34,10 +34,12 @@
     "appium-jsonwp-proxy": "^1.4.1",
     "appium-logger": "^2.0.0",
     "appium-selendroid-installer": "^0.1.0",
-    "appium-support": "^2.0.6",
+    "appium-support": "^2.0.7",
     "appium-unlock": "0.0.1",
     "asyncbox": "^2.3.1",
     "babel-runtime": "=5.8.24",
+    "bluebird": "^3.0.5",
+    "fs-extra": "^0.26.1",
     "io.appium.settings": "^2.0.0",
     "lodash": "^3.10.1",
     "mobile-json-wire-protocol": "^1.0.2",
