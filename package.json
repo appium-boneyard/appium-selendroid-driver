@@ -7,7 +7,7 @@
     "automated testing",
     "android"
   ],
-  "version": "1.0.1",
+  "version": "1.1.0",
   "author": "appium",
   "license": "Apache-2.0",
   "repository": {
@@ -26,18 +26,18 @@
     "lib": "lib"
   },
   "dependencies": {
-    "appium-adb": "^2.0.4",
-    "appium-android-driver": "^1.1.0",
-    "appium-base-driver": "^1.1.0",
-    "appium-express": "^1.0.0",
-    "appium-jsonwp-proxy": "^1.4.1",
-    "appium-logger": "^2.0.0",
-    "appium-selendroid-installer": "^0.1.0",
-    "appium-support": "^2.0.7",
+    "appium-adb": "^2.3.0",
+    "appium-android-driver": "^1.5.0",
+    "appium-base-driver": "^1.3.0",
+    "appium-express": "^1.2.0",
+    "appium-jsonwp-proxy": "^1.5.0",
+    "appium-logger": "^2.1.0",
+    "appium-selendroid-installer": "^0.2.0",
+    "appium-support": "^2.0.9",
     "asyncbox": "^2.3.1",
     "babel-runtime": "=5.8.24",
     "lodash": "^3.10.1",
-    "mobile-json-wire-protocol": "^1.0.2",
+    "mobile-json-wire-protocol": "^1.2.0",
     "source-map-support": "^0.3.2",
     "utf7": "^1.0.0",
     "yargs": "^3.29.0"
@@ -50,7 +50,7 @@
     "selendroid": "node ./bin/install.js"
   },
   "devDependencies": {
-    "appium-gulp-plugins": "^1.3.11",
+    "appium-gulp-plugins": "^1.3.12",
     "appium-test-support": "0.0.5",
     "chai": "^3.4.0",
     "chai-as-promised": "^5.1.0",
