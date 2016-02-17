@@ -41,22 +41,32 @@ describe('driver.js', () => {
   describe('checkAppPresent', async () => {
     it('should resolve if app present', async () => {
       let driver = new SelendroidDriver({}, false);
+      let app = path.resolve('.');
       sinon.mock(driver).expects('startSelendroidSession')
                         .returns(Promise.resolve());
+      sinon.mock(driver.helpers).expects('configureApp')
+                        .returns(app);
 
-      await driver.createSession({app: path.resolve('.')});
+      await driver.createSession({app});
 
       await driver.checkAppPresent(); // should not error
+
+      // configureApp is shared between the two,
+      // so restore mock or the next test will fail
+      driver.helpers.configureApp.restore();
     });
 
     it('should reject if app not present', async () => {
       let driver = new SelendroidDriver({}, false);
+      let app = path.resolve('asdfasdf');
       sinon.mock(driver).expects('checkAppPresent')
                         .returns(Promise.resolve());
       sinon.mock(driver).expects('startSelendroidSession')
                         .returns(Promise.resolve());
+      sinon.mock(driver.helpers).expects('configureApp')
+                        .returns(app);
 
-      await driver.createSession({app: path.resolve('asdfasdf')});
+      await driver.createSession({app});
 
       driver.checkAppPresent.restore();
       await driver.checkAppPresent().should.eventually.be.rejectedWith('Could not find');
