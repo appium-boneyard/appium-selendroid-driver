@@ -5,10 +5,15 @@ var INTERVAL = 1500;
 var attempts = 1;
 
 function doInstall () {
-  var setupSelendroid, asyncify;
+  var setupSelendroid;
+  var asyncify = require('asyncbox').asyncify;
+
+  // selendroid needs Java. Fail early if it doesn't exist
+  var androidHelpers = require('appium-android-driver').androidHelpers;
+  asyncify(androidHelpers.getJavaVersion);
+
   try {
     setupSelendroid = require('appium-selendroid-installer').setupSelendroid;
-    asyncify = require('asyncbox').asyncify;
     // TODO: add --conditional flag for npm install so we don't crash if the build
     // dir doesn't exist
     asyncify(setupSelendroid);
