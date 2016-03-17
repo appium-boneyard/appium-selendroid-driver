@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "appium-adb": "^2.5.1",
-    "appium-android-driver": "^1.7.6",
-    "appium-base-driver": "^1.4.0",
+    "appium-android-driver": "^1.8.0",
+    "appium-base-driver": "^1.4.1",
     "appium-express": "^1.2.2",
     "appium-jsonwp-proxy": "^1.5.0",
     "appium-logger": "^2.1.0",
