@@ -1,6 +1,6 @@
 "use strict";
 
-var MAX_ATTEMPTS = 20;
+var MAX_ATTEMPTS = 200;
 var INTERVAL = 1500;
 var attempts = 1;
 
@@ -20,7 +20,9 @@ function doInstall () {
   } catch (err) {
     if (attempts > MAX_ATTEMPTS) {
       console.log("Tried too many times to install selendroid, failing");
-      throw err;
+      console.log("Original error: " + err.message);
+      console.log("Please re-run `install appium-selendroid-installer` manually.");
+      throw new Error("Unable to import and run `appium-selendroid-installer`");
     }
     attempts++;
     console.log("Selendroid setup files did not yet exist, waiting...");
