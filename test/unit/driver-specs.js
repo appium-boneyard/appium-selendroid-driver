@@ -36,6 +36,16 @@ describe('driver.js', () => {
       driver.sessionId.should.exist;
       driver.caps.cap.should.equal('foo');
     });
+
+    it('should set the default context', async () => {
+      let driver = new SelendroidDriver({}, false);
+      sinon.mock(driver).expects('checkAppPresent')
+                        .returns(Promise.resolve());
+      sinon.mock(driver).expects('startSelendroidSession')
+                        .returns(Promise.resolve());
+      await driver.createSession({});
+      driver.curContext.should.equal('NATIVE_APP');
+    });
   });
 
   describe('checkAppPresent', async () => {
