@@ -16,7 +16,7 @@ This driver is the Appium interface to the [Selendroid](http://selendroid.io/) t
 
 From the Appium server it is requested by specifying the desired capability `automationName` of `Selendroid` when starting a session.
 
-Most of the Selenium methods are handled by the Selendroid framework itself. This package simply handles the setting up of the session by instrumenting the application and making sure that both the application and the Selendroid server are signed with the same keys. It then provides a method for proxying through the [appium-jsonwp-proxy](https://github.com/appium/jsonwp-proxy) to the Selendroid server running on the device.
+Most of the Selenium methods are handled by the Selendroid framework itself. This package simply handles the setting up of the session by instrumenting the application and making sure that both the application and the Selendroid server are signed with the same keys. It then provides a method for proxying through the [appium-jsonwp-proxy](https://github.com/appium/appium-base-driver/blob/master/lib/jsonwp-proxy) to the Selendroid server running on the device.
 
 `proxyReqRes (request, response)`
 
