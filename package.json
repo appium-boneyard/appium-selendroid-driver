@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "appium-adb": "^2.5.1",
-    "appium-android-driver": "^1.8.0",
+    "appium-android-driver": "^1.10.16",
     "appium-base-driver": "^2.0.1",
     "appium-logger": "^2.1.0",
     "appium-selendroid-installer": "^0.2.0",
