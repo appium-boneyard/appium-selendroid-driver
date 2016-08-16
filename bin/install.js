@@ -35,7 +35,7 @@ function doInstall () {
     if (codeNotBuilt && !attemptedToBuild) {
       attemptedToBuild = true;
       console.log("Attempting to transpile setup code...");
-      exec("gulp transpile", {cwd: path.resolve(__dirname, "..")}, function (err) {
+      exec("npm run transpile", {cwd: path.resolve(__dirname, "..")}, function (err) {
         if (err) {
           console.warn("Setup code could not be transpiled: " + err.message);
           return;
