@@ -49,7 +49,7 @@ function doInstall () {
       onErr(err);
     }
   }).catch(function () {
-    console.error("Could not find JAVA, skipping Selendroid install.")
+    console.error("Could not find JAVA, skipping Selendroid install.");
   });
 
 }
