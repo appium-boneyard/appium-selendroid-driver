@@ -78,6 +78,26 @@ The following methods are implemented by the `appium-selendroid-driver`, either 
 | `unlock ()`                                                               |
 | `updateSettings (settings)`                                               |
 
+### Custom binaries url
+
+To use a mirror of the Selendroid driver binaries use npm config property `selendroid_driver_cdnurl`.
+Default is `http://repo1.maven.org/maven2/io/selendroid/selendroid-standalone`.
+
+```bash
+npm install appium-selendroid-driver --selendroid_driver_cdnurl=http://repo2.maven.org/maven2/io/selendroid/selendroid-standalone
+```
+
+Or add the property into your [`.npmrc`](https://docs.npmjs.com/files/npmrc) file.
+
+```bash
+selendroid_driver_cdnurl=http://repo2.maven.org/maven2/io/selendroid/selendroid-standalone
+```
+
+Another option is to use PATH variable `SELENDROID_DRIVER_CDNURL`.
+
+```bash
+SELENDROID_DRIVER_CDNURL=http://repo2.maven.org/maven2/io/selendroid/selendroid-standalone npm install appium-selendroid-driver
+```
 
 ### Working on the package
 
