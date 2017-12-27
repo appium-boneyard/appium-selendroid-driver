@@ -1,4 +1,4 @@
-node_modules
-selendroid
+selendroid/
 *.log
-test
+test/
+build/test/
