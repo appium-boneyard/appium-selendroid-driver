@@ -8,12 +8,12 @@ import { withMocks } from 'appium-test-support';
 chai.should();
 chai.use(chaiAsPromised);
 
-describe('Selendroid Helpers', () => {
+describe('Selendroid Helpers', function () {
   let adb = new ADB();
 
   describe('ensureInternetPermissionForApp', withMocks({adb}, (mocks) => {
     const app = '/path/to/app.apk';
-    it('should do nothing if app has internet perm', async () => {
+    it('should do nothing if app has internet perm', async function () {
       mocks.adb.expects('hasInternetPermissionFromManifest')
                .once()
                .withExactArgs(app)
@@ -21,7 +21,7 @@ describe('Selendroid Helpers', () => {
       await helpers.ensureInternetPermissionForApp(adb, app);
       mocks.adb.verify();
     });
-    it('should throw an error if app doesnt have internet perms', async () => {
+    it('should throw an error if app doesnt have internet perms', async function () {
       mocks.adb.expects('hasInternetPermissionFromManifest')
                .once()
                .withExactArgs(app)

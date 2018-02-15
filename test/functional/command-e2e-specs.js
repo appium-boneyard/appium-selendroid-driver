@@ -17,21 +17,21 @@ const shouldStartServer = process.env.USE_RUNNING_SERVER !== "0";
 chai.should();
 chai.use(chaiAsPromised);
 
-describe('SelendroidDriver', () => {
+describe('SelendroidDriver', function () {
   let server = null;
 
-  before(async () => {
+  before(async function () {
     if (shouldStartServer) {
       server = await startServer(TEST_PORT, TEST_HOST);
     }
   });
-  after(async () => {
+  after(async function () {
     if (server) {
       server.close();
     }
   });
 
-  describe('set network connection', () => {
+  describe('set network connection', function () {
     // setting network connection uses android-driver methods that call
     const caps = {
       platformName: 'Android',
@@ -39,7 +39,7 @@ describe('SelendroidDriver', () => {
       app: TEST_APP
     };
 
-    it('should start a session', async () => {
+    it('should start a session', async function () {
       let driver = wd.promiseChainRemote(TEST_HOST, TEST_PORT);
       await driver.init(caps);
 

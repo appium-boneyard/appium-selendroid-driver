@@ -3,57 +3,58 @@ import chaiAsPromised from 'chai-as-promised';
 import SelendroidDriver from '../..';
 import sinon from 'sinon';
 import path from 'path';
+import B from 'bluebird';
 
 
 chai.should();
 chai.use(chaiAsPromised);
 
-describe('driver.js', () => {
-  describe('constructor', () => {
-    it('calls BaseDriver constructor with opts', () => {
+describe('driver.js', function () {
+  describe('constructor', function () {
+    it('calls BaseDriver constructor with opts', function () {
       let driver = new SelendroidDriver({foo: 'bar'});
       driver.should.exist;
       driver.opts.foo.should.equal('bar');
     });
   });
 
-  describe('createSession', () => {
-    it('should throw an error if app can not be found', async () => {
+  describe('createSession', function () {
+    it('should throw an error if app can not be found', async function () {
       let driver = new SelendroidDriver({}, false);
       await driver.createSession({app: 'foo.apk'}).should.be.rejectedWith('does not exist');
     });
 
-    it('should set sessionId', async () => {
+    it('should set sessionId', async function () {
       let driver = new SelendroidDriver({}, false);
       sinon.mock(driver).expects('checkAppPresent')
                         .once()
-                        .returns(Promise.resolve());
+                        .returns(B.resolve());
       sinon.mock(driver).expects('startSelendroidSession')
                         .once()
-                        .returns(Promise.resolve());
+                        .returns(B.resolve());
       await driver.createSession({cap: 'foo'});
 
       driver.sessionId.should.exist;
       driver.caps.cap.should.equal('foo');
     });
 
-    it('should set the default context', async () => {
+    it('should set the default context', async function () {
       let driver = new SelendroidDriver({}, false);
       sinon.mock(driver).expects('checkAppPresent')
-                        .returns(Promise.resolve());
+                        .returns(B.resolve());
       sinon.mock(driver).expects('startSelendroidSession')
-                        .returns(Promise.resolve());
+                        .returns(B.resolve());
       await driver.createSession({});
       driver.curContext.should.equal('NATIVE_APP');
     });
   });
 
-  describe('checkAppPresent', async () => {
-    it('should resolve if app present', async () => {
+  describe('checkAppPresent', async function () {
+    it('should resolve if app present', async function () {
       let driver = new SelendroidDriver({}, false);
       let app = path.resolve('.');
       sinon.mock(driver).expects('startSelendroidSession')
-                        .returns(Promise.resolve());
+                        .returns(B.resolve());
       sinon.mock(driver.helpers).expects('configureApp')
                         .returns(app);
 
@@ -66,13 +67,13 @@ describe('driver.js', () => {
       driver.helpers.configureApp.restore();
     });
 
-    it('should reject if app not present', async () => {
+    it('should reject if app not present', async function () {
       let driver = new SelendroidDriver({}, false);
       let app = path.resolve('asdfasdf');
       sinon.mock(driver).expects('checkAppPresent')
-                        .returns(Promise.resolve());
+                        .returns(B.resolve());
       sinon.mock(driver).expects('startSelendroidSession')
-                        .returns(Promise.resolve());
+                        .returns(B.resolve());
       sinon.mock(driver.helpers).expects('configureApp')
                         .returns(app);
 
@@ -83,46 +84,46 @@ describe('driver.js', () => {
     });
   });
 
-  describe('proxying', () => {
+  describe('proxying', function () {
     let driver;
-    before(() => {
+    before(function () {
       driver = new SelendroidDriver({}, false);
       driver.sessionId = 'abc';
     });
-    describe('#proxyActive', () => {
-      it('should exist', () => {
+    describe('#proxyActive', function () {
+      it('should exist', function () {
         driver.proxyActive.should.be.an.instanceof(Function);
       });
-      it('should return true', () => {
+      it('should return true', function () {
         driver.proxyActive('abc').should.be.true;
       });
-      it('should throw an error if session id is wrong', () => {
+      it('should throw an error if session id is wrong', function () {
         (() => { driver.proxyActive('aaa'); }).should.throw;
       });
     });
 
-    describe('#getProxyAvoidList', () => {
-      it('should exist', () => {
+    describe('#getProxyAvoidList', function () {
+      it('should exist', function () {
         driver.getProxyAvoidList.should.be.an.instanceof(Function);
       });
-      it('should return jwpProxyAvoid array', () => {
+      it('should return jwpProxyAvoid array', function () {
         let avoidList = driver.getProxyAvoidList('abc');
         avoidList.should.be.an.instanceof(Array);
         avoidList.should.eql(driver.jwpProxyAvoid);
       });
-      it('should throw an error if session id is wrong', () => {
+      it('should throw an error if session id is wrong', function () {
         (() => { driver.getProxyAvoidList('aaa'); }).should.throw;
       });
     });
 
-    describe('#canProxy', () => {
-      it('should exist', () => {
+    describe('#canProxy', function () {
+      it('should exist', function () {
         driver.canProxy.should.be.an.instanceof(Function);
       });
-      it('should return true', () => {
+      it('should return true', function () {
         driver.canProxy('abc').should.be.true;
       });
-      it('should throw an error if session id is wrong', () => {
+      it('should throw an error if session id is wrong', function () {
         (() => { driver.canProxy('aaa'); }).should.throw;
       });
     });

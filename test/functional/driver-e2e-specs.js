@@ -19,45 +19,45 @@ const shouldStartServer = process.env.USE_RUNNING_SERVER !== "0";
 const should = chai.should();
 chai.use(chaiAsPromised);
 
-describe('SelendroidDriver', () => {
+describe('SelendroidDriver', function () {
   let server = null;
 
-  before(async () => {
+  before(async function () {
     if (shouldStartServer) {
       server = await startServer(TEST_PORT, TEST_HOST);
     }
   });
-  after(async () => {
+  after(async function () {
     if (server) {
       server.close();
     }
   });
 
-  describe('local app', () => {
+  describe('local app', function () {
     const caps = {platformName: 'Android', deviceName: 'Android Emulator',
                   app: TEST_APP};
     let tempAppFile;
-    before(async () => {
+    before(async function () {
       // make a temporary copy of the apk
       let dir = await tempDir.path();
       tempAppFile = path.resolve(dir, 'selendroid-test-app.apk');
       await fs.copyFile(TEST_APP, tempAppFile);
       caps.app = tempAppFile;
     });
-    after(async () => {
+    after(async function () {
       if (tempAppFile) {
         await fs.unlink(tempAppFile);
       }
     });
 
-    it('should start a session', async () => {
+    it('should start a session', async function () {
       let driver = wd.promiseChainRemote(TEST_HOST, TEST_PORT);
       let [sessionId] = await driver.init(caps);
       should.exist(sessionId);
       sessionId.should.be.a('string');
       await driver.quit();
     });
-    it('should fail gracefully when session has ended', async () => {
+    it('should fail gracefully when session has ended', async function () {
       let driver = wd.promiseChainRemote(TEST_HOST, TEST_PORT);
       let [sessionId] = await driver.init(caps);
       should.exist(sessionId);
@@ -67,11 +67,11 @@ describe('SelendroidDriver', () => {
     });
   });
 
-  describe('remote app', () => {
+  describe('remote app', function () {
     const caps = {platformName: 'Android', deviceName: 'Android Emulator',
                   app: REMOTE_TEST_APP};
 
-    it('should start a session', async () => {
+    it('should start a session', async function () {
       let driver = wd.promiseChainRemote(TEST_HOST, TEST_PORT);
       let [sessionId] = await driver.init(caps);
       should.exist(sessionId);
