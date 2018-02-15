@@ -1,22 +1,22 @@
 /* eslint-disable no-console */
 "use strict";
 
-var exec = require("child_process").exec;
-var path = require("path");
+const exec = require("child_process").exec;
+const path = require("path");
 
-var MAX_ATTEMPTS = 200;
-var INTERVAL = 1500;
-var attempts = 1;
-var attemptedToBuild = false;
+const MAX_ATTEMPTS = 200;
+const INTERVAL = 1500;
+let attempts = 1;
+let attemptedToBuild = false;
 
 function doInstall () {
-  var setupSelendroid;
+  let setupSelendroid;
 
   // selendroid needs Java. Fail early if it doesn't exist
-  var androidHelpers = require('appium-android-driver').androidHelpers;
-  androidHelpers.getJavaVersion().then(function () {
-    var onErr = function (err) {
-      var codeNotBuilt = err.message.indexOf('Cannot find module') !== -1;
+  const androidHelpers = require('appium-android-driver').androidHelpers;
+  androidHelpers.getJavaVersion().then(function () { // eslint-disable-line promise/prefer-await-to-then
+    let onErr = function (err) {
+      let codeNotBuilt = err.message.indexOf('Cannot find module') !== -1;
       if (attempts > MAX_ATTEMPTS) {
         console.log("Tried too many times to install selendroid, failing");
         console.log("Original error: " + err.message);
@@ -28,7 +28,7 @@ function doInstall () {
       if (codeNotBuilt && !attemptedToBuild) {
         attemptedToBuild = true;
         console.log("Attempting to transpile setup code...");
-        exec("npm run transpile", {cwd: path.resolve(__dirname, "..")}, function (err) {
+        exec("npm run transpile", {cwd: path.resolve(__dirname, "..")}, function (err) { // eslint-disable-line promise/prefer-await-to-callbacks
           if (err) {
             console.warn("Setup code could not be transpiled: " + err.message);
           } else {

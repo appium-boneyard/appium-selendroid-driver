@@ -9,13 +9,13 @@ let sandbox = sinon.sandbox.create();
 chai.should();
 chai.use(chaiAsPromised);
 
-describe('Network', () => {
-  describe('SetNetworkConnection', () => {
-    beforeEach(async () => {
+describe('Network', function () {
+  describe('SetNetworkConnection', function () {
+    beforeEach(async function () {
       driver = new SelendroidDriver();
       driver.adb = new ADB();
       sandbox.stub(driver, 'getNetworkConnection');
-      sandbox.stub(driver, 'wrapBootstrapDisconnect', async (fn) => {
+      sandbox.stub(driver, 'wrapBootstrapDisconnect').callsFake(async (fn) => {
         await fn();
       });
       sandbox.stub(driver.adb, 'setAirplaneMode');
@@ -23,31 +23,31 @@ describe('Network', () => {
       sandbox.stub(driver.adb, 'setWifiState');
       sandbox.stub(driver.adb, 'setDataState');
     });
-    afterEach(() => {
+    afterEach(function () {
       sandbox.restore();
     });
-    it('should turn off wifi and data', async () => {
+    it('should turn off wifi and data', async function () {
       await driver.setNetworkConnection(0);
       driver.adb.setAirplaneMode.calledWithExactly(0).should.be.true;
       driver.adb.broadcastAirplaneMode.calledWithExactly(0).should.be.true;
       driver.adb.setWifiState.calledWithExactly(0, false).should.be.true;
       driver.adb.setDataState.calledWithExactly(0, false).should.be.true;
     });
-    it('should turn on and broadcast airplane mode', async () => {
+    it('should turn on and broadcast airplane mode', async function () {
       await driver.setNetworkConnection(1);
       driver.adb.setAirplaneMode.calledWithExactly(1).should.be.true;
       driver.adb.broadcastAirplaneMode.calledWithExactly(1).should.be.true;
       driver.adb.setWifiState.called.should.be.false;
       driver.adb.setDataState.called.should.be.false;
     });
-    it('should turn on wifi', async () => {
+    it('should turn on wifi', async function () {
       await driver.setNetworkConnection(2);
       driver.adb.setAirplaneMode.calledWithExactly(0).should.be.true;
       driver.adb.broadcastAirplaneMode.calledWithExactly(0).should.be.true;
       driver.adb.setWifiState.calledWithExactly(1, false).should.be.true;
       driver.adb.setDataState.calledWithExactly(0, false).should.be.true;
     });
-    it('should turn on data on emulator', async () => {
+    it('should turn on data on emulator', async function () {
       driver.opts.avd = 'something';
       try {
         await driver.setNetworkConnection(4);
@@ -59,7 +59,7 @@ describe('Network', () => {
         driver.opts.avd = undefined;
       }
     });
-    it('should turn on data and wifi', async () => {
+    it('should turn on data and wifi', async function () {
       await driver.setNetworkConnection(6);
       driver.adb.setAirplaneMode.calledWithExactly(0).should.be.true;
       driver.adb.broadcastAirplaneMode.calledWithExactly(0).should.be.true;
