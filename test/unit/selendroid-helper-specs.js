@@ -13,22 +13,24 @@ describe('Selendroid Helpers', function () {
 
   describe('ensureInternetPermissionForApp', withMocks({adb}, (mocks) => {
     const app = '/path/to/app.apk';
-    it('should do nothing if app has internet perm', async function () {
+
+    afterEach(function () {
+      mocks.verify();
+    });
+    it('should do nothing if app has internet perms', async function () {
       mocks.adb.expects('hasInternetPermissionFromManifest')
                .once()
                .withExactArgs(app)
                .returns(true);
       await helpers.ensureInternetPermissionForApp(adb, app);
-      mocks.adb.verify();
     });
-    it('should throw an error if app doesnt have internet perms', async function () {
+    it('should throw an error if app does not have internet perms', async function () {
       mocks.adb.expects('hasInternetPermissionFromManifest')
                .once()
                .withExactArgs(app)
                .returns(false);
       await helpers.ensureInternetPermissionForApp(adb, app)
                    .should.be.rejectedWith(/INTERNET/);
-      mocks.adb.verify();
     });
   }));
 });
