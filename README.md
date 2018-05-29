@@ -7,6 +7,7 @@
 
 [![Build Status](https://api.travis-ci.org/appium/appium-selendroid-driver.png?branch=master)](https://travis-ci.org/appium/appium-selendroid-driver)
 [![Coverage Status](https://coveralls.io/repos/appium/appium-selendroid-driver/badge.svg?branch=master)](https://coveralls.io/r/appium/appium-selendroid-driver?branch=master)
+[![Greenkeeper badge](https://badges.greenkeeper.io/appium/appium-selendroid-driver.svg)](https://greenkeeper.io/)
 
 
 This driver is the Appium interface to the [Selendroid](http://selendroid.io/) test automation framework.
