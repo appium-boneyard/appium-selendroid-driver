@@ -32,6 +32,7 @@
     "appium-support": "^2.5.0",
     "asyncbox": "^2.3.1",
     "babel-runtime": "=5.8.24",
+    "fancy-log": "^1.3.2",
     "lodash": "^4.17.4",
     "request-promise": "^4.1.1",
     "source-map-support": "^0.5.5",
@@ -40,10 +41,11 @@
     "yargs": "^12.0.1"
   },
   "scripts": {
-    "prepublish": "./node_modules/.bin/gulp prepublish",
-    "transpile": "./node_modules/.bin/gulp transpile",
-    "test": "./node_modules/.bin/gulp once",
-    "watch": "./node_modules/.bin/gulp",
+    "clean": "rm -rf node_modules && rm -f package-lock.json && npm install",
+    "prepublish": "gulp prepublish",
+    "transpile": "gulp transpile",
+    "test": "gulp once",
+    "watch": "gulp",
     "install": "node ./bin/install.js",
     "selendroid": "node ./bin/install.js",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",

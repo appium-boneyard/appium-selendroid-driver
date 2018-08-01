@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
 "use strict";
 
-const exec = require("child_process").exec;
-const path = require("path");
+const exec = require('child_process').exec;
+const path = require('path');
+const log = require('fancy-log');
+
 
 const MAX_ATTEMPTS = 200;
 const INTERVAL = 1500;
@@ -14,30 +16,31 @@ function doInstall () {
 
   // selendroid needs Java. Fail early if it doesn't exist
   const androidHelpers = require('appium-android-driver').androidHelpers;
-  androidHelpers.getJavaVersion().then(function () { // eslint-disable-line promise/prefer-await-to-then
+  androidHelpers.getJavaVersion(false).then(function (version) { // eslint-disable-line promise/prefer-await-to-then
+    log(`Java version ${version} found`);
     let onErr = function (err) {
       let codeNotBuilt = err.message.indexOf('Cannot find module') !== -1;
       if (attempts > MAX_ATTEMPTS) {
-        console.log("Tried too many times to install selendroid, failing");
-        console.log("Original error: " + err.message);
-        throw new Error("Unable to import and run the installer. " +
-                        "If you're running from source, run `gulp transpile` " +
-                        "and then re-run `npm install`");
+        log('Tried too many times to install selendroid, failing');
+        log(`Original error: ${err.message}`);
+        throw new Error('Unable to import and run the installer. ' +
+                        'If you are running from source, run `gulp transpile` ' +
+                        'and then re-run `npm install`');
       }
       attempts++;
       if (codeNotBuilt && !attemptedToBuild) {
         attemptedToBuild = true;
-        console.log("Attempting to transpile setup code...");
-        exec("npm run transpile", {cwd: path.resolve(__dirname, "..")}, function (err) { // eslint-disable-line promise/prefer-await-to-callbacks
+        log('Attempting to transpile setup code...');
+        exec('npm run transpile', {cwd: path.resolve(__dirname, '..')}, function (err) { // eslint-disable-line promise/prefer-await-to-callbacks
           if (err) {
-            console.warn("Setup code could not be transpiled: " + err.message);
+            log.warn(`Setup code could not be transpiled: ${err.message}`);
           } else {
-            console.log("Setup code successfully transpiled");
+            log('Setup code successfully transpiled');
           }
           setTimeout(doInstall, INTERVAL);
         });
       } else {
-        console.log("Selendroid setup files did not yet exist, waiting...");
+        log('Selendroid setup files did not yet exist, waiting...');
         setTimeout(doInstall, INTERVAL);
       }
     };
@@ -49,7 +52,7 @@ function doInstall () {
       onErr(err);
     }
   }).catch(function () {
-    console.error("Could not find JAVA, skipping Selendroid install.");
+    log.error('Could not find JAVA, skipping Selendroid install.');
   });
 
 }
