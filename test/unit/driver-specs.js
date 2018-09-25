@@ -49,7 +49,7 @@ describe('driver.js', function () {
     });
   });
 
-  describe('checkAppPresent', async function () {
+  describe('checkAppPresent', function () {
     it('should resolve if app present', async function () {
       let driver = new SelendroidDriver({}, false);
       let app = path.resolve('.');

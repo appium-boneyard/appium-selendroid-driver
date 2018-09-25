@@ -27,7 +27,7 @@ describe('SelendroidDriver', function () {
       server = await startServer(TEST_PORT, TEST_HOST);
     }
   });
-  after(async function () {
+  after(function () {
     if (server) {
       server.close();
     }
@@ -80,4 +80,3 @@ describe('SelendroidDriver', function () {
     });
   });
 });
-
