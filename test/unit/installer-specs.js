@@ -63,7 +63,7 @@ describe('installer', withMocks({log, fs}, (mocks) => {
     it('should return false if fs.exists throws a ENOENT error', async function () {
       mocks.fs.expects("exists").once()
         .withExactArgs(SE_APK_PATH)
-        .throws({code:'ENOENT'});
+        .throws({code: 'ENOENT'});
       (await serverExists()).should.be.false;
     });
     it('should throw an error if fs.exists throws a non-ENOENT error', async function () {
