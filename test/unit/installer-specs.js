@@ -20,8 +20,8 @@ describe('installer', withMocks({log, fs}, (mocks) => {
       // unset PATH in env so we can't find 'jar' on path
       // (this turned out to be easier than trying to mock teen_process.exec
       let oldEnv = _.clone(process.env);
-      process.env = Object.assign(process.env, {PATH: ""});
-      mocks.log.expects("error").once();
+      process.env = Object.assign(process.env, {PATH: ''});
+      mocks.log.expects('error').once();
 
       await setupSelendroid();
 
@@ -31,37 +31,37 @@ describe('installer', withMocks({log, fs}, (mocks) => {
 
   describe('serverExists', function () {
     it('should return true if both apk and manifest exist', async function () {
-      mocks.fs.expects("exists").once()
+      mocks.fs.expects('exists').once()
         .withExactArgs(SE_APK_PATH)
         .returns(B.resolve(true));
-      mocks.fs.expects("exists").once()
+      mocks.fs.expects('exists').once()
         .withExactArgs(SE_MANIFEST_PATH)
         .returns(B.resolve(true));
       (await serverExists()).should.be.true;
     });
     it('should return false if apk does not exist', async function () {
-      mocks.fs.expects("exists").once()
+      mocks.fs.expects('exists').once()
         .withExactArgs(SE_APK_PATH)
         .returns(B.resolve(false));
       (await serverExists()).should.be.false;
     });
     it('should return false if manifest does not exist', async function () {
-      mocks.fs.expects("exists").once()
+      mocks.fs.expects('exists').once()
         .withExactArgs(SE_APK_PATH)
         .returns(B.resolve(true));
-      mocks.fs.expects("exists").once()
+      mocks.fs.expects('exists').once()
         .withExactArgs(SE_MANIFEST_PATH)
         .returns(B.resolve(false));
       (await serverExists()).should.be.false;
     });
     it('should return false if neither apk or manifest does not exist', async function () {
-      mocks.fs.expects("exists").once()
+      mocks.fs.expects('exists').once()
         .withExactArgs(SE_APK_PATH)
         .returns(B.resolve(false));
       (await serverExists()).should.be.false;
     });
     it('should return false if fs.exists throws a ENOENT error', async function () {
-      mocks.fs.expects("exists").once()
+      mocks.fs.expects('exists').once()
         .withExactArgs(SE_APK_PATH)
         .throws({code: 'ENOENT'});
       (await serverExists()).should.be.false;
@@ -69,7 +69,7 @@ describe('installer', withMocks({log, fs}, (mocks) => {
     it('should throw an error if fs.exists throws a non-ENOENT error', async function () {
       let error = new Error();
       error.code = 'EACCES';
-      mocks.fs.expects("exists").once()
+      mocks.fs.expects('exists').once()
         .withExactArgs(SE_APK_PATH)
         .throws(error);
       await serverExists().should.eventually.be.rejectedWith(error);

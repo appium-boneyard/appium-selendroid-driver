@@ -12,7 +12,7 @@ const TEST_HOST = 'localhost';
 const TEST_APP = path.resolve(__dirname, '..', '..', '..', 'test', 'fixtures',
                               'selendroid-test-app.apk');
 
-const shouldStartServer = process.env.USE_RUNNING_SERVER !== "0";
+const shouldStartServer = process.env.USE_RUNNING_SERVER !== '0';
 
 chai.should();
 chai.use(chaiAsPromised);
