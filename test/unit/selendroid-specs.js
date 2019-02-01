@@ -53,16 +53,16 @@ describe('SelendroidServer', withSandbox({mocks: {adb, fs}}, (S) => {
   describe('#prepareModifiedServer', function () {
     let selendroid = new SelendroidServer(buildSelendroidOpts(adb));
     it('should build a modified server if one doesnt exist', async function () {
-      S.mocks.fs.expects("exists").once()
+      S.mocks.fs.expects('exists').once()
         .withExactArgs(selendroid.modServerPath)
         .returns(B.resolve(false));
       // should uninstall the apk if it's rebuilt
-      S.mocks.adb.expects("uninstallApk").once()
+      S.mocks.adb.expects('uninstallApk').once()
         .withExactArgs(selendroid.modServerPkg)
         .returns(B.resolve());
       S.mocks.selendroid = S.sandbox.mock(selendroid);
       // should call the rebuilding method
-      S.mocks.selendroid.expects("buildNewModServer").once()
+      S.mocks.selendroid.expects('buildNewModServer').once()
         .returns(B.resolve());
       // should check certs regardless
       S.mocks.selendroid.expects('checkAndSignCert').once()
@@ -70,16 +70,16 @@ describe('SelendroidServer', withSandbox({mocks: {adb, fs}}, (S) => {
       await selendroid.prepareModifiedServer();
     });
     it('should not build a modified server if one does exist', async function () {
-      S.mocks.fs.expects("exists").once()
+      S.mocks.fs.expects('exists').once()
         .withExactArgs(selendroid.modServerPath)
         .returns(B.resolve(true));
       // should not uninstall the apk if it's not rebuilt
-      S.mocks.adb.expects("uninstallApk").never();
+      S.mocks.adb.expects('uninstallApk').never();
       S.mocks.selendroid = S.sandbox.mock(selendroid);
       // should not call the building method
-      S.mocks.selendroid.expects("buildNewModServer").never();
+      S.mocks.selendroid.expects('buildNewModServer').never();
       // should check certs regardless
-      S.mocks.selendroid.expects("checkAndSignCert").once()
+      S.mocks.selendroid.expects('checkAndSignCert').once()
         .returns(B.resolve());
       await selendroid.prepareModifiedServer();
     });
@@ -88,19 +88,19 @@ describe('SelendroidServer', withSandbox({mocks: {adb, fs}}, (S) => {
   describe('#buildNewModServer', function () {
     let selendroid = new SelendroidServer(buildSelendroidOpts(adb));
     it('should go through the steps to compile a server', async function () {
-      S.mocks.fs.expects("mkdir").once()
+      S.mocks.fs.expects('mkdir').once()
         .withExactArgs(`/tmp/${selendroid.appPackage}`)
         .returns(B.resolve());
-      S.mocks.fs.expects("copyFile").once()
+      S.mocks.fs.expects('copyFile').once()
         .withExactArgs(SE_MANIFEST_PATH, '/tmp/AndroidManifest.xml')
         .returns(B.resolve());
-      S.mocks.adb.expects("initAapt").once()
+      S.mocks.adb.expects('initAapt').once()
         .returns(B.resolve());
-      S.mocks.adb.expects("compileManifest").once()
+      S.mocks.adb.expects('compileManifest').once()
         .withExactArgs('/tmp/AndroidManifest.xml', selendroid.modServerPkg,
                        selendroid.appPackage)
         .returns(B.resolve());
-      S.mocks.adb.expects("insertManifest").once()
+      S.mocks.adb.expects('insertManifest').once()
         .withExactArgs('/tmp/AndroidManifest.xml', SE_APK_PATH,
                        selendroid.modServerPath)
         .returns(B.resolve());
@@ -111,16 +111,16 @@ describe('SelendroidServer', withSandbox({mocks: {adb, fs}}, (S) => {
   describe('#checkAndSignCert', function () {
     let selendroid = new SelendroidServer(buildSelendroidOpts(adb));
     it('should check and sign both apks if neither are signed', async function () {
-      S.mocks.adb.expects("checkApkCert").once()
+      S.mocks.adb.expects('checkApkCert').once()
         .withExactArgs(selendroid.modServerPath, selendroid.appPackage)
         .returns(B.resolve(false));
-      S.mocks.adb.expects("checkApkCert").once()
+      S.mocks.adb.expects('checkApkCert').once()
         .withExactArgs(selendroid.apk, selendroid.appPackage)
         .returns(B.resolve(false));
-      S.mocks.adb.expects("sign").once()
+      S.mocks.adb.expects('sign').once()
         .withExactArgs(selendroid.modServerPath)
         .returns(B.resolve());
-      S.mocks.adb.expects("sign").once()
+      S.mocks.adb.expects('sign').once()
         .withExactArgs(selendroid.apk)
         .returns(B.resolve());
       await selendroid.checkAndSignCert(selendroid.modServerPath);
@@ -128,13 +128,13 @@ describe('SelendroidServer', withSandbox({mocks: {adb, fs}}, (S) => {
     });
 
     it('should check and sign only one apks if one is signed', async function () {
-      S.mocks.adb.expects("checkApkCert").once()
+      S.mocks.adb.expects('checkApkCert').once()
         .withExactArgs(selendroid.modServerPath, selendroid.appPackage)
         .returns(B.resolve(false));
-      S.mocks.adb.expects("checkApkCert").once()
+      S.mocks.adb.expects('checkApkCert').once()
         .withExactArgs(selendroid.apk, selendroid.appPackage)
         .returns(B.resolve(true));
-      S.mocks.adb.expects("sign").once()
+      S.mocks.adb.expects('sign').once()
         .withExactArgs(selendroid.modServerPath)
         .returns(B.resolve());
       await selendroid.checkAndSignCert(selendroid.modServerPath);
@@ -142,13 +142,13 @@ describe('SelendroidServer', withSandbox({mocks: {adb, fs}}, (S) => {
     });
 
     it('should check and sign neither apk if both are signed', async function () {
-      S.mocks.adb.expects("checkApkCert").once()
+      S.mocks.adb.expects('checkApkCert').once()
         .withExactArgs(selendroid.modServerPath, selendroid.appPackage)
         .returns(B.resolve(true));
-      S.mocks.adb.expects("checkApkCert").once()
+      S.mocks.adb.expects('checkApkCert').once()
         .withExactArgs(selendroid.apk, selendroid.appPackage)
         .returns(B.resolve(true));
-      S.mocks.adb.expects("sign").never();
+      S.mocks.adb.expects('sign').never();
       await selendroid.checkAndSignCert(selendroid.modServerPath);
       await selendroid.checkAndSignCert(selendroid.apk);
     });
@@ -159,13 +159,13 @@ describe('SelendroidServer', withSandbox({mocks: {adb, fs}}, (S) => {
     it('should start instrumented app, wait for status, and start a session', async function () {
       let caps = {foo: 'bar'};
       S.mocks.jwproxy = S.sandbox.mock(selendroid.jwproxy);
-      S.mocks.adb.expects("instrument").once()
+      S.mocks.adb.expects('instrument').once()
         .withArgs(selendroid.appPackage, selendroid.appActivity);
-      S.mocks.jwproxy.expects("command").once()
-        .withExactArgs("/status", "GET")
+      S.mocks.jwproxy.expects('command').once()
+        .withExactArgs('/status', 'GET')
         .returns(B.resolve());
-      S.mocks.jwproxy.expects("command").once()
-        .withExactArgs("/session", "POST", {desiredCapabilities: caps})
+      S.mocks.jwproxy.expects('command').once()
+        .withExactArgs('/session', 'POST', {desiredCapabilities: caps})
         .returns(B.resolve());
       await selendroid.startSession(caps);
     });
@@ -173,16 +173,16 @@ describe('SelendroidServer', withSandbox({mocks: {adb, fs}}, (S) => {
     it('should wait for selendroid to respond to /status', async function () {
       let caps = {foo: 'bar'};
       S.mocks.jwproxy = S.sandbox.mock(selendroid.jwproxy);
-      S.mocks.adb.expects("instrument").once()
+      S.mocks.adb.expects('instrument').once()
         .withArgs(selendroid.appPackage, selendroid.appActivity);
-      S.mocks.jwproxy.expects("command").once()
-        .withExactArgs("/status", "GET")
-        .returns(B.reject(new Error("nope")));
-      S.mocks.jwproxy.expects("command").once()
-        .withExactArgs("/status", "GET")
+      S.mocks.jwproxy.expects('command').once()
+        .withExactArgs('/status', 'GET')
+        .returns(B.reject(new Error('nope')));
+      S.mocks.jwproxy.expects('command').once()
+        .withExactArgs('/status', 'GET')
         .returns(B.resolve());
-      S.mocks.jwproxy.expects("command").once()
-        .withExactArgs("/session", "POST", {desiredCapabilities: caps})
+      S.mocks.jwproxy.expects('command').once()
+        .withExactArgs('/session', 'POST', {desiredCapabilities: caps})
         .returns(B.resolve());
       await selendroid.startSession(caps);
     });

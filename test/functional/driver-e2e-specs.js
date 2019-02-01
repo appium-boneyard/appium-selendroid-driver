@@ -14,7 +14,7 @@ const TEST_APP = path.resolve(__dirname, '..', '..', '..', 'test', 'fixtures',
                               'selendroid-test-app.apk');
 const REMOTE_TEST_APP = 'http://appium.github.io/appium/assets/ApiDemos-debug.apk';
 
-const shouldStartServer = process.env.USE_RUNNING_SERVER !== "0";
+const shouldStartServer = process.env.USE_RUNNING_SERVER !== '0';
 
 const should = chai.should();
 chai.use(chaiAsPromised);
