@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+/* eslint-disable promise/prefer-await-to-then */
+/* eslint-disable promise/prefer-await-to-callbacks */
 'use strict';
 
 const exec = require('child_process').exec;
@@ -16,9 +18,9 @@ function doInstall () {
 
   // selendroid needs Java. Fail early if it doesn't exist
   const androidHelpers = require('appium-android-driver').androidHelpers;
-  androidHelpers.getJavaVersion(false).then(function (version) { // eslint-disable-line promise/prefer-await-to-then
+  androidHelpers.getJavaVersion(false).then(function tryInstall (version) {
     log(`Java version ${version} found`);
-    let onErr = function (err) {
+    const onErr = function onErr (err) {
       let codeNotBuilt = err.message.indexOf('Cannot find module') !== -1;
       if (attempts > MAX_ATTEMPTS) {
         log('Tried too many times to install selendroid, failing');
@@ -31,7 +33,7 @@ function doInstall () {
       if (codeNotBuilt && !attemptedToBuild) {
         attemptedToBuild = true;
         log('Attempting to transpile setup code...');
-        exec('npm run transpile', {cwd: path.resolve(__dirname, '..')}, function (err) { // eslint-disable-line promise/prefer-await-to-callbacks
+        exec('npm run transpile', {cwd: path.resolve(__dirname, '..')}, function retryInstall (err) {
           if (err) {
             log.warn(`Setup code could not be transpiled: ${err.message}`);
           } else {
@@ -51,7 +53,7 @@ function doInstall () {
     } catch (err) {
       onErr(err);
     }
-  }).catch(function () {
+  }).catch(function onJavaError () {
     log.error('Could not find JAVA, skipping Selendroid install.');
   });
 
